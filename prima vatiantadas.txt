@@ -1,0 +1,88 @@
+#include<iostream>
+#include<string.h>
+#include<fstream>
+using namespace std;
+typedef struct scrisoare{
+    string culoare,oras,nume,prenume;
+    int varsta;
+    char wishlist[100],dorinte[20][20];
+    struct scrisoare *urm;
+}SCRISOARE;
+
+class MosCraciun{
+    private:
+    SCRISOARE *cap_lista,*p,*q;
+    int NumarScris;
+    public:
+    void setScrisoare(SCRISOARE *p,string culoare,string oras,string nume,string prenume,int varsta,char wishlist[100]);
+    void getScrisoare(int i);
+    MosCraciun();
+    friend class Elf;
+};
+MosCraciun::MosCraciun(){
+    ifstream Scrisoarein("Scrisori.txt");
+    string culoare,oras,nume,prenume;
+    int varsta;
+    char wishlist[100];
+
+    this->NumarScris=0;
+    
+    Scrisoarein>>culoare;
+    Scrisoarein>>oras;
+    Scrisoarein>>nume;
+    Scrisoarein>>prenume;
+    Scrisoarein>>varsta;
+    Scrisoarein.getline(wishlist,100);
+    this->NumarScris++;
+    setScrisoare(cap_lista,culoare,oras,nume,prenume,varsta,wishlist);
+
+    while(!Scrisoarein.eof())
+    {   
+        
+        Scrisoarein>>culoare;
+        Scrisoarein>>oras;
+        Scrisoarein>>nume;
+        Scrisoarein>>prenume;
+        Scrisoarein>>varsta;
+        Scrisoarein.getline(wishlist,100);
+        this->NumarScris++;
+        setScrisoare(p,culoare,oras,nume,prenume,varsta,wishlist);
+    }
+    Scrisoarein.close();
+}
+void MosCraciun::setScrisoare(SCRISOARE *p,string c,string o,string n,string pr,int v,char wis[])
+{
+    p=new SCRISOARE;
+    this->p->culoare=c;
+    this->p->oras=o;
+    this->p->nume=n;
+    this->p->prenume=pr;
+    this->p->varsta=v;
+    strcpy(this->p->wishlist,wis);
+    p->urm=NULL;
+    q->urm=p;
+    p=q;
+}
+void MosCraciun::getScrisoare(int i){
+   int nr=1;
+   p=cap_lista;
+   while(nr!=i)
+        p=p->urm;
+    
+    cout<<p->nume;
+    cout<<p->prenume;
+    cout<<p->oras;
+    cout<<p->varsta;
+    cout<<p->culoare;
+    cout<<p->wishlist;
+}
+class Elf{
+
+};
+int main()
+{
+    int i;
+    MosCraciun obiect;
+    for(i=1;i<=5;i++)
+    obiect.getScrisoare(i);
+return 0;}

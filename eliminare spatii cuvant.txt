@@ -1,0 +1,5 @@
+ for(int l=1;l<scris[i].NumarDorinte;l++)
+                for(int k=0;k<strlen(scris[i].wishlist[l])-1;k++)
+                if(scris[i].wishlist[l][k]==' ')
+                    for(int j=k+1;j<strlen(scris[i].wishlist[l]);j++)
+                    scris[i].wishlist[l][j-1]=scris[i].wishlist[l][j];

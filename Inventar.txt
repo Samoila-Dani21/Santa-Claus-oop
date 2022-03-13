@@ -1,0 +1,6 @@
+1000 10 creioane colorate,
+1000 100 playstation 5,    
+1000 20 coronita,         
+1000 30 papusa,           
+10000 40 animale de plus,  
+10000 99 telefon,          

@@ -1,0 +1,71 @@
+#include<iostream>
+#include<string.h>
+#include<fstream>
+using namespace std;
+typedef struct scrisoare{
+    char oras[20],nume[20],prenume[20];
+    int varsta;
+    char culoare[20],wishlist[50],dorinte[20][20];
+}SCRISOARE;
+
+class MosCraciun{
+    private:
+    
+    int NumarScris;
+    public:
+    SCRISOARE scris[10];
+    void setScrisoare(int i,char culoare[20],char oras[20],char nume[20],char prenume[20],int varsta,char wishlist[]);
+    void getScrisoare(int i);
+    MosCraciun();
+    ~MosCraciun(){};
+    friend class Elf;
+};
+MosCraciun::MosCraciun(){
+
+    ifstream Scrisoarein("Scrisori.txt");
+    char oras[20],nume[20],prenume[20];
+    char culoare[20];
+    int varsta;
+    char wishlist[100];
+    this->NumarScris=0;
+    cout<<"Mesaj";
+    while(!Scrisoarein.eof())
+    {
+        Scrisoarein>>culoare;
+        Scrisoarein>>oras;
+        Scrisoarein>>nume;
+        Scrisoarein>>prenume;
+        Scrisoarein>>varsta;
+        Scrisoarein.getline(wishlist,50);
+        this->NumarScris++;
+        setScrisoare(this->NumarScris,culoare,oras,nume,prenume,varsta,wishlist);
+    }
+    Scrisoarein.close();
+}
+void MosCraciun::setScrisoare(int i,char c[],char o[],char n[],char p[],int v,char wis[])
+{
+    strcpy(scris[i].culoare,c);
+    strcpy(scris[i].oras,o);
+    strcpy(scris[i].nume,n);
+    strcpy(scris[i].prenume,p);
+    scris[i].varsta=v;
+    strcpy(scris[i].wishlist,wis);
+}
+void MosCraciun::getScrisoare(int i){
+    cout<<scris[i].nume;
+    cout<<scris[i].prenume;
+    cout<<scris[i].oras;
+    cout<<scris[i].varsta;
+    cout<<scris[i].culoare;
+    cout<<scris[i].wishlist;
+}
+class Elf{
+
+};
+int main()
+{
+    int i;
+    MosCraciun obiect;
+    for(i=1;i<=5;i++)
+    obiect.getScrisoare(i);
+return 0;}
